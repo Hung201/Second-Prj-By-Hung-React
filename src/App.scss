@@ -5,3 +5,25 @@ body {
     -webkit-font-smoothing : antialiased;
     -moz-osz-font-smoothing: grayscale;
 }
+
+.app-container {
+    .header-container {
+        .navbar-nav {
+            z-index: 10;
+
+            .nav-link {
+                &.active {
+                    color: #00bfff;
+                }
+
+            }
+
+        }
+    }
+}
+
+
+video {
+    position: fixed;
+    bottom  : 0;
+}
