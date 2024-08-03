@@ -6,10 +6,60 @@ body {
     -moz-osz-font-smoothing: grayscale;
 }
 
+@media (min-width: 1450px) {
+
+    .container,
+    .container-lg,
+    .container-md,
+    .container-sm,
+    .container-xl,
+    .container-xxl {
+        max-width: 1400px !important;
+    }
+}
+
 .app-container {
     .header-container {
-        .navbar-nav {
-            z-index: 10;
+        background: white;
+
+        .btn-login {
+            border      : none;
+            background  : white;
+            font-weight : 500;
+            font-size   : 15px;
+            transition  : 0.3s ease;
+            margin-right: 10px;
+            height      : 40px;
+
+            &:hover {
+                opacity: 0.7;
+            }
+        }
+
+        .btn-signup {
+            border       : none;
+            border-radius: 10px;
+            background   : #191919;
+            color        : white;
+            font-weight  : 500;
+            padding      : 8px 16px;
+            text-align   : center;
+            font-size    : 15px;
+            transition   : 0.3s ease;
+            height       : 40px;
+
+            &:hover {
+                opacity: 0.8;
+            }
+        }
+
+        .navbar {
+            padding   : 20px 20px;
+            z-index   : 10;
+            background: white;
+            position  : sticky;
+            top       : 0px;
+            width     : 100%;
 
             .nav-link {
                 &.active {
@@ -20,10 +70,56 @@ body {
 
         }
     }
-}
 
+    .homepage-container {
+        display: flex;
 
-video {
-    position: fixed;
-    bottom  : 0;
+        .video-hp {
+            video {
+                width: 100%;
+            }
+        }
+
+        .homepage-content {
+            position      : relative;
+            display       : flex;
+            flex-direction: column;
+            gap           : 30px;
+            margin-top    : 65px;
+            padding       : 0 70px;
+
+            .title-1 {
+                h1 {
+                    font-size     : 80px;
+                    letter-spacing: -0.02em;
+                    line-height   : 1;
+                    font-weight   : 400;
+                }
+            }
+
+            .title-2 {
+                font-size: 20px;
+            }
+
+            .title-3 {
+                margin-top: 10px;
+
+                button {
+                    border       : none;
+                    border-radius: 10px;
+                    background   : #191919;
+                    color        : white;
+                    font-weight  : 500;
+                    padding      : 12px 24px;
+                    text-align   : center;
+                    font-size    : 15px;
+                    transition   : 0.3s ease;
+
+                    &:hover {
+                        opacity: 0.8;
+                    }
+                }
+            }
+        }
+    }
 }
