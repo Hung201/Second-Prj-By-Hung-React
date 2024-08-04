@@ -11,6 +11,7 @@ import {
 
 import { FaTachometerAlt, FaGem, FaList, FaGithub, FaRegLaughWink, FaHeart } from 'react-icons/fa';
 // import sidebarBg from '../../assets/bg2.jpg';
+import { Link } from 'react-router-dom';
 
 
 const SideBar = (props) => {
@@ -37,30 +38,31 @@ const SideBar = (props) => {
                             whiteSpace: 'nowrap',
                         }}
                     >
-                        Hoi Dan IT
+                        EMT
                     </div>
                 </SidebarHeader>
 
                 <SidebarContent>
-                    <Menu iconShape="circle">
+                    <Menu iconShape="circle" >
                         <MenuItem
                             icon={<FaTachometerAlt />}
                             suffix={<span className="badge red">New</span>}
                         >
-                            dashboard
+                            Dashboard
+                            <Link to="/admin" />
                         </MenuItem>
-                        <MenuItem icon={<FaGem />}> components </MenuItem>
-                    </Menu>
-                    <Menu iconShape="circle">
                         <SubMenu
                             suffix={<span className="badge yellow">3</span>}
-                            icon={<FaRegLaughWink />}
+                            icon={<FaGem />}
+                            title='Features'
                         >
-                            <MenuItem> 1</MenuItem>
-                            <MenuItem> 2</MenuItem>
-                            <MenuItem> 3</MenuItem>
+                            <MenuItem>
+                                Manage users
+                                <Link to="/admin/manage-users" />
+                            </MenuItem>
+                            <MenuItem> Manage quizs </MenuItem>
+                            <MenuItem> Manage questions</MenuItem>
                         </SubMenu>
-
                     </Menu>
                 </SidebarContent>
 
