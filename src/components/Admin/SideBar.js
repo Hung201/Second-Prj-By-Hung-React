@@ -9,7 +9,8 @@ import {
     SidebarContent,
 } from 'react-pro-sidebar';
 
-import { FaTachometerAlt, FaGem, FaList, FaGithub, FaRegLaughWink, FaHeart } from 'react-icons/fa';
+import { MdOutlineDashboard, MdOutlineFeaturedPlayList } from "react-icons/md";
+import { FaUsers } from "react-icons/fa";
 // import sidebarBg from '../../assets/bg2.jpg';
 import { Link } from 'react-router-dom';
 
@@ -19,7 +20,7 @@ const SideBar = (props) => {
     return (
         <>
             <ProSidebar
-                // image={sidebarBg}
+                // image={MdOutlineDashboard}
                 collapsed={collapsed}
                 toggled={toggled}
                 breakPoint="md"
@@ -45,7 +46,7 @@ const SideBar = (props) => {
                 <SidebarContent>
                     <Menu iconShape="circle" >
                         <MenuItem
-                            icon={<FaTachometerAlt />}
+                            icon={<MdOutlineDashboard />}
                             suffix={<span className="badge red">New</span>}
                         >
                             Dashboard
@@ -53,10 +54,10 @@ const SideBar = (props) => {
                         </MenuItem>
                         <SubMenu
                             suffix={<span className="badge yellow">3</span>}
-                            icon={<FaGem />}
+                            icon={<MdOutlineFeaturedPlayList />}
                             title='Features'
                         >
-                            <MenuItem>
+                            <MenuItem icon={<FaUsers />}>
                                 Manage users
                                 <Link to="/admin/manage-users" />
                             </MenuItem>
@@ -79,7 +80,7 @@ const SideBar = (props) => {
                             className="sidebar-btn"
                             rel="noopener noreferrer"
                         >
-                            <FaGithub />
+                            {/* <FaGithub /> */}
                             <span style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
                                 viewSource
                             </span>
