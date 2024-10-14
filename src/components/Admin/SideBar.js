@@ -8,6 +8,7 @@ import {
     SidebarFooter,
     SidebarContent,
 } from 'react-pro-sidebar';
+import { useNavigate } from 'react-router-dom';
 
 import { MdOutlineDashboard, MdOutlineFeaturedPlayList } from "react-icons/md";
 import { FaUsers } from "react-icons/fa";
@@ -17,6 +18,7 @@ import { Link } from 'react-router-dom';
 
 const SideBar = (props) => {
     const { image, collapsed, toggled, handleToggleSidebar } = props;
+    const navigate = useNavigate()
     return (
         <>
             <ProSidebar
@@ -39,7 +41,7 @@ const SideBar = (props) => {
                             whiteSpace: 'nowrap',
                         }}
                     >
-                        EMT
+                        <span className='emt' onClick={() => navigate('/')}>EMT</span>
                     </div>
                 </SidebarHeader>
 
