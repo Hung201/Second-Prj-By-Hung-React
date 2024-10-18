@@ -4,28 +4,43 @@
     padding: 50px;
 
     .left-content {
-        border: 1px solid red;
-        width : 70%;
+        border       : 2px solid #ccc;
+        width        : 70%;
+        border-radius: 5px;
+        padding      : 20px;
 
         .title {
-            font-size  : 30px;
-            font-weight: 600;
+            font-size     : 30px;
+            font-weight   : 600;
+            border-bottom : 1px solid #ccc;
+            padding-bottom: 20px;
         }
 
         .q-content {
+            text-align: left;
+
             .question {
-                font-size  : 30px;
+                font-size  : 18px;
                 font-weight: 600;
+                padding    : 20px 0;
             }
 
             .q-image {
                 img {
-                    width: 50%;
+                    max-width: 50%;
+                }
+            }
+
+            .answer {
+                .a-child {
+                    text-align  : left;
+                    padding-left: 10px;
                 }
             }
         }
 
         .footer {
+            margin-top     : 20px;
             display        : flex;
             gap            : 15px;
             justify-content: center;
@@ -33,7 +48,9 @@
     }
 
     .right-content {
-        border: 1px solid green;
-        width : 30%;
+        border       : 2px solid #ccc;
+        width        : 30%;
+        border-radius: 5px;
+        padding      : 20px;
     }
 }
