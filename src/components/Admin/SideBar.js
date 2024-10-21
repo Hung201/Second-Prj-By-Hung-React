@@ -60,11 +60,13 @@ const SideBar = (props) => {
                             title='Features'
                         >
                             <MenuItem icon={<FaUsers />}>
-                                Manage users
+                                Manage Users
                                 <Link to="/admin/manage-users" />
                             </MenuItem>
-                            <MenuItem> Manage quizs </MenuItem>
-                            <MenuItem> Manage questions</MenuItem>
+                            <MenuItem> Manage Quizzes
+                                <Link to="/admin/manage-quizzes" />
+                            </MenuItem>
+                            <MenuItem> Manage Questions</MenuItem>
                         </SubMenu>
                     </Menu>
                 </SidebarContent>
