@@ -3,41 +3,39 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { LuImagePlus } from "react-icons/lu";
 import { toast } from 'react-toastify';
-import { putUpdateUser } from '../../../services/apiServices';
 import _ from 'lodash'
+import { putUpdateQuiz } from '../../../../services/apiServices';
 
-const ModalViewUser = (props) => {
+const ModalUpdateQuiz = (props) => {
     const { show, setShow, dataUpdate } = props;
     const handleClose = () => {
         setShow(false);
-        setEmail("");
-        setPassword("");
-        setUsername("");
-        setRole("USER");
+        setName("")
+        setType("EASY");
+        setDescription("");
         setImage("");
         setPreviewImage("");
         props.resetUpdateData()
     }
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [username, setUsername] = useState("");
-    const [role, setRole] = useState("USER");
+    const [description, setDescription] = useState("");
+    const [name, setName] = useState("");
+    const [type, setType] = useState("EASY");
     const [image, setImage] = useState("");
     const [previewImage, setPreviewImage] = useState("");
 
     useEffect(() => {
         if (!_.isEmpty(dataUpdate)) {
-            setEmail(dataUpdate.email);
-            setPassword();
-            setUsername(dataUpdate.username);
-            setRole(dataUpdate.role);
+            setName(dataUpdate.name);
+            setType(dataUpdate.difficulty);
+            setDescription(dataUpdate.description);
             setImage("");
             if (dataUpdate.image) {
                 setPreviewImage(`data:image/jpeg;base64,${dataUpdate.image}`);
             }
         }
     }, [dataUpdate])
+
     const handleUploadImage = (event) => {
         if (event.target && event.target.files && event.target.files[0]) {
             setPreviewImage(URL.createObjectURL(event.target.files[0]))
@@ -46,40 +44,28 @@ const ModalViewUser = (props) => {
             // setPreviewImage("")
         }
     }
-    const validateEmail = (email) => {
-        return String(email)
-            .toLowerCase()
-            .match(
-                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-            );
-    };
-
-    const handleSubmitUpdateUser = async () => {
+    const handleSubmitUpdateQuiz = async () => {
         //validate
-        const isValidEmail = validateEmail(email);
-        if (!isValidEmail) {
-            toast.error('Invalid email!')
-            return;
+        if (!name || !description) {
+            toast.error('Name/Description is required');
+            return
         }
-
-        let res = await putUpdateUser(dataUpdate.id, username, role, image);
+        let res = await putUpdateQuiz(dataUpdate.id, name, description, type, image);
         if (res && res.EC === 0) {
             toast.success(res.EM);
             handleClose();
-            await props.fetchListUsers();
+            await props.fetchListQuizzes();
         }
         if (res && res.EC !== 0) {
             toast.error(res.EM);
         }
+
     }
-
-
-
     return (
         <>
             {/* <Button variant="primary" onClick={handleShow}>
-                Launch demo modal
-            </Button> */}
+            Launch demo modal
+        </Button> */}
 
             <Modal
                 show={show}
@@ -89,48 +75,38 @@ const ModalViewUser = (props) => {
                 className='modal-add-user'
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>View a user</Modal.Title>
+                    <Modal.Title>Update a quiz</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form className="row g-3">
                         <div className="col-md-6">
-                            <label className="form-label">Email</label>
+                            <label className="form-label">Name</label>
                             <input
                                 type="email"
                                 className="form-control"
-                                value={email}
-                                disabled
-                                onChange={(event) => setEmail(event.target.value)}
+                                value={name}
+                                onChange={(event) => setName(event.target.value)}
                             />
                         </div>
                         <div className="col-md-6">
-                            <label className="form-label">Password</label>
-                            <input
-                                type="password"
-                                className="form-control"
-                                value={password}
-                                disabled
-                                onChange={(event) => setPassword(event.target.value)}
-                            />
-                        </div>
-                        <div className="col-md-6">
-                            <label className="form-label">Username</label>
+                            <label className="form-label">Description</label>
                             <input
                                 type="text"
                                 className="form-control"
-                                value={username}
-                                onChange={(event) => setUsername(event.target.value)}
+                                value={description}
+                                onChange={(event) => setDescription(event.target.value)}
                             />
                         </div>
                         <div className="col-md-4">
-                            <label className="form-label">Role</label>
+                            <label className="form-label">Type</label>
                             <select
                                 className="form-select"
-                                onChange={(event) => setRole(event.target.value)}
-                                value={role}
+                                onChange={(event) => setType(event.target.value)}
+                                value={type}
                             >
-                                <option value="USER">USER</option>
-                                <option value="ADMIN">ADMIN</option>
+                                <option value="EASY">EASY</option>
+                                <option value="MEDIUM">MEDIUM</option>
+                                <option value="HARD">HARD</option>
                             </select>
                         </div>
                         <div className="col-md-12">
@@ -156,10 +132,13 @@ const ModalViewUser = (props) => {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
+                    <Button variant="primary" onClick={handleSubmitUpdateQuiz}>
+                        Save
+                    </Button>
                 </Modal.Footer>
             </Modal >
         </>
     );
 }
 
-export default ModalViewUser;
+export default ModalUpdateQuiz;
