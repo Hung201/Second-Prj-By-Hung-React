@@ -59,14 +59,16 @@ const SideBar = (props) => {
                             icon={<MdOutlineFeaturedPlayList />}
                             title='Features'
                         >
-                            <MenuItem icon={<FaUsers />}>
+                            <MenuItem >
                                 Manage Users
                                 <Link to="/admin/manage-users" />
                             </MenuItem>
                             <MenuItem> Manage Quizzes
                                 <Link to="/admin/manage-quizzes" />
                             </MenuItem>
-                            <MenuItem> Manage Questions</MenuItem>
+                            <MenuItem> Manage Questions
+                                <Link to="/admin/manage-questions" />
+                            </MenuItem>
                         </SubMenu>
                     </Menu>
                 </SidebarContent>
