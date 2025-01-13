@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { getAllQuizForAdmin } from "../../../../services/apiServices";
 
 const TableQuiz = (props) => {
-    const [listQuiz, setlistQuiz] = useState([]);
+    const [listQuiz, setListQuiz] = useState([]);
     const { listQuizzes } = props
 
     useEffect(() => {
@@ -12,7 +12,7 @@ const TableQuiz = (props) => {
     const fetchQuiz = async () => {
         let res = await getAllQuizForAdmin();
         if (res && res.EC === 0) {
-            setlistQuiz(res.DT)
+            setListQuiz(res.DT)
         }
     }
     return (

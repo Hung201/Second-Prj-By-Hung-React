@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Select from 'react-select'
 import './Questions.scss'
 import { CiSquarePlus, CiSquareMinus, CiCirclePlus, CiCircleMinus } from "react-icons/ci";
@@ -6,16 +6,14 @@ import { RiImageAddFill } from "react-icons/ri"
 import { v4 as uuidv4 } from 'uuid';
 import _ from 'lodash';
 import Lightbox from "react-awesome-lightbox";
+import {
+    getAllQuizForAdmin, postCreateNewQuestionForQuiz,
+    postCreateNewAnswerForQuestion
+} from "../../../../services/apiServices";
+import { toast } from 'react-toastify';
 
 const Questions = (props) => {
-    const options = [
-        { value: 'chocolate', label: 'Chocolate' },
-        { value: 'strawberry', label: 'Strawberry' },
-        { value: 'vanilla', label: 'Vanilla' }
-    ]
-    const [selectQuiz, setSelectedQuiz] = useState({})
-
-    const [questions, setQuestions] = useState([
+    const initQuestions = [
         {
             id: uuidv4(),
             description: '',
@@ -29,13 +27,35 @@ const Questions = (props) => {
                 }
             ]
         }
-    ])
+    ]
+    const [selectQuiz, setSelectedQuiz] = useState({})
+
+    const [questions, setQuestions] = useState(initQuestions)
 
     const [isPreviewImage, setIsPreviewImage] = useState(false);
     const [dataImagePreview, setDataImagePreview] = useState({
         title: '',
         url: ''
     })
+
+    const [listQuiz, setListQuiz] = useState([])
+
+    useEffect(() => {
+        fetchQuiz()
+    }, [])
+
+    const fetchQuiz = async () => {
+        let res = await getAllQuizForAdmin();
+        if (res && res.EC === 0) {
+            let newQuiz = res.DT.map(item => {
+                return {
+                    value: item.id,
+                    label: `${item.id} - ${item.description}`
+                }
+            })
+            setListQuiz(newQuiz)
+        }
+    }
 
     const handleAddRemoveQuestion = (type, id) => {
         if (type === 'ADD') {
@@ -124,8 +144,54 @@ const Questions = (props) => {
         }
     }
 
-    const handleSubmitQuestionForQuiz = () => {
-        console.log('questions: ', questions)
+    const handleSubmitQuestionForQuiz = async () => {
+        //todo
+        if (_.isEmpty(selectQuiz)) {
+            toast.error("Please choose a Quiz")
+            return
+        }
+
+        //validate answer
+        let isValidAnswer = true;
+        let indexQ = 0, indexA = 0;
+        for (let i = 0; i < questions.length; i++) {
+            for (let j = 0; j < questions[i].answers.length; j++) {
+                if (!questions[i].answers[j].description) {
+                    isValidAnswer = false;
+                    indexA = j;
+                    break;
+                }
+            }
+            indexQ = i;
+            if (isValidAnswer === false) break;
+        }
+        if (isValidAnswer === false) {
+            toast.error(`Not empty Answer ${indexA + 1} at Question ${indexQ + 1}`)
+            return;
+        }
+        //validate question 
+        let isValidQ = true;
+        let indexQ1 = 0;
+        for (let i = 0; i < questions.length; i++) {
+            if (!questions[i].description) {
+                isValidQ = false;
+                indexQ1 = i;
+                break;
+            }
+        }
+        if (isValidQ === false) {
+            toast.error(`Not empty description for Question ${indexQ1 + 1}`)
+        }
+
+        for (const question of questions) {
+            const q = await postCreateNewQuestionForQuiz(+selectQuiz.value, question.description, question.imageFile);
+            //submit answers
+            for (const answer of question.answers) {
+                await postCreateNewAnswerForQuestion(answer.description, answer.isCorrect, q.DT.id)
+            }
+        }
+        toast.success(`Create questions and answers succeed!`)
+        setQuestions(initQuestions)
     }
 
     const handlePreviewImage = (questionId) => {
@@ -149,7 +215,7 @@ const Questions = (props) => {
                 <div className='col-md-6 form-group'>
                     <label className='mb-2'>Select Quiz:</label>
                     <Select
-                        options={options}
+                        options={listQuiz}
                         defaultValue={selectQuiz}
                         onChange={setSelectedQuiz}
                     />
