@@ -52,6 +52,14 @@ const Login = (props) => {
     const handleHideShowPassword = () => {
         setHideShowPassword(!hideShowPassword)
     }
+
+    const handleKeyDown = (e) => {
+        console.log('check: ', e.key, e)
+        if (e && e.key === 'Enter') {
+            e.preventDefault();
+            handleLogin()
+        }
+    }
     return (
         <div className="login-container">
             <div className='header'>
@@ -84,6 +92,7 @@ const Login = (props) => {
                             placeholder='At least 8 characters'
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
+                            onKeyDown={(e) => handleKeyDown(e)}
                         />
                         <div className='eye-password-login' onClick={() => handleHideShowPassword()}>
                             {hideShowPassword === false ? <FaRegEye className='' /> : <FaRegEyeSlash />}
