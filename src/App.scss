@@ -7,6 +7,13 @@ body {
     -moz-osz-font-smoothing: grayscale;
 }
 
+.languages {
+    .dropdown-toggle::after {
+        display: none !important;
+    }
+}
+
+
 @media (min-width: 1450px) {
 
     .container,

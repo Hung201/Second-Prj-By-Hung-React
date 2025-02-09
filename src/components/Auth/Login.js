@@ -7,6 +7,7 @@ import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { useDispatch } from 'react-redux';
 import { doLogin } from '../../redux/action/userAction';
 import { ImSpinner2 } from "react-icons/im";
+import Language from '../Header/Language';
 
 const Login = (props) => {
     const [email, setEmail] = useState('')
@@ -65,6 +66,7 @@ const Login = (props) => {
             <div className='header'>
                 <span>Don't have an account yet?</span>
                 <button onClick={() => navigate('/register')}>Sign up</button>
+                <Language />
             </div>
             <div className='title col-md-4 mx-auto'>
                 EMT
