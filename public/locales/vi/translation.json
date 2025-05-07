@@ -6,5 +6,9 @@
         "title3": {
             "login": "Bắt đầu-miễn phí"
         }
-    }
+    },
+    "header": {},
+    "quiz": {},
+    "login": {},
+    "register": {}
 }

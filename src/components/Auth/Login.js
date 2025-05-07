@@ -21,7 +21,7 @@ const Login = (props) => {
         return String(email)
             .toLowerCase()
             .match(
-                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
             );
     };
     const handleLogin = async () => {
@@ -55,7 +55,6 @@ const Login = (props) => {
     }
 
     const handleKeyDown = (e) => {
-        console.log('check: ', e.key, e)
         if (e && e.key === 'Enter') {
             e.preventDefault();
             handleLogin()
@@ -72,7 +71,7 @@ const Login = (props) => {
                 EMT
             </div>
             <div className='welcome col-md-4 mx-auto'>
-                Hello, who’s this?
+                Hello, who's this?
             </div>
             <div className='form-content col-md-4 mx-auto'>
                 <div className='form-group'>
@@ -100,7 +99,6 @@ const Login = (props) => {
                             {hideShowPassword === false ? <FaRegEye className='' /> : <FaRegEyeSlash />}
                         </div>
                         <span className='forgot-password'>Forgot password?</span>
-
                     </form>
                 </div>
                 <div>
@@ -109,7 +107,6 @@ const Login = (props) => {
                         onClick={() => handleLogin()}
                         disabled={isLoading}
                     >
-
                         {
                             isLoading === true &&
                             <ImSpinner2 className="loader-icon" />

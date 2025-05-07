@@ -2,8 +2,8 @@ import { useState } from 'react'
 import './Register.scss'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify';
-import { postRegister } from '../../services/apiServices';
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import { postRegister } from '../../services/apiServices';
 
 const Register = (props) => {
     const [username, setUsername] = useState('')
@@ -16,11 +16,11 @@ const Register = (props) => {
     const handleRegister = async () => {
         //validate
 
-        //submit apis
+        // submit apis
         let res = await postRegister(username, email, password);
         if (res && res.EC === 0) {
             toast.success(res.EM);
-            navigate('/')
+            navigate('/login')
         }
         if (res && +res.EC !== 0) {
             toast.error(res.EM);
@@ -41,16 +41,16 @@ const Register = (props) => {
             <div className='title col-md-4 mx-auto'>
                 EMT
             </div>
-            <div className='welcome col-md-4 mx-auto'>
+            {/* <div className='welcome col-md-4 mx-auto'>
                 Get better data with conversational forms, surveys, quizzes & more.
-            </div>
+            </div> */}
             <div className='form-content col-md-4 mx-auto'>
                 <div className='form-group'>
-                    <label>Your name</label>
+                    <label>Username</label>
                     <input
                         type='text'
                         className='form-control'
-                        placeholder='Your name'
+                        placeholder='Username'
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                     />
